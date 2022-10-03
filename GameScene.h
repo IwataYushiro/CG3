@@ -59,7 +59,11 @@ private: // メンバ変数
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
+	//スプライト
 	Sprite* spriteBG = nullptr;
+	Sprite* sprite1 = nullptr;
+	Sprite* sprite2 = nullptr;
+	//3Dオブジェクト
 	Object3d* object3d = nullptr;
 };
 

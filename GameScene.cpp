@@ -10,6 +10,8 @@ GameScene::GameScene()
 GameScene::~GameScene()
 {
 	delete spriteBG;
+	delete sprite1;
+	delete sprite2;
 	delete object3d;
 }
 
@@ -29,6 +31,13 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input)
 
 	// テクスチャ読み込み
 	Sprite::LoadTexture(1, L"Resources/background.png");
+	//テクスチャ2番に読み込み
+	Sprite::LoadTexture(2, L"Resources/texture.png");
+
+	//座標(0,0)にテクスチャ2番のスプライトを生成
+	sprite1 = Sprite::Create(2, { 0,0 });
+	//座標(500,500)にテクスチャ2番のスプライトを生成
+	sprite2 = Sprite::Create(2, { 500,500 }, { 1,0,0,1 }, { 0,0 }, false, true);
 
 	// 背景スプライト生成
 	spriteBG = Sprite::Create(1, { 0.0f,0.0f });
@@ -107,6 +116,9 @@ void GameScene::Draw()
 	// 前景スプライト描画前処理
 	Sprite::PreDraw(cmdList);
 
+	//前景スプライト描画
+	sprite1->Draw();
+	sprite2->Draw();
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
