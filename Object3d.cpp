@@ -510,8 +510,18 @@ void Object3d::UpdateViewMatrix()
 	XMVECTOR cameraAxisY;
 	//Y軸はZ軸→X軸の外積で決まる
 	cameraAxisY = XMVector3Cross(cameraAxisZ, cameraAxisX);
-	//ベクトルを正規化
-	cameraAxisY = XMVector3Normalize(cameraAxisY);
+	
+	//カメラ回転行列
+	XMMATRIX matCameraRot;
+	//カメラ座標系→ワールド座標系の変換行列
+	matCameraRot.r[0] = cameraAxisX;
+	matCameraRot.r[1] = cameraAxisY;
+	matCameraRot.r[2] = cameraAxisZ;
+	matCameraRot.r[3] = XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f);
+
+	//転置により逆行列(逆回転)を計算
+	matView = XMMatrixTranspose(matCameraRot);
+
 }
 
 bool Object3d::Initialize()
