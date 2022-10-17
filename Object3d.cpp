@@ -28,6 +28,8 @@ XMMATRIX Object3d::matProjection{};
 XMFLOAT3 Object3d::eye = { 0, 0, -50.0f };
 XMFLOAT3 Object3d::target = { 0, 0, 0 };
 XMFLOAT3 Object3d::up = { 0, 1, 0 };
+XMMATRIX Object3d::matBillboard = XMMatrixIdentity();
+XMMATRIX Object3d::matBillboardY = XMMatrixIdentity();
 D3D12_VERTEX_BUFFER_VIEW Object3d::vbView{};
 D3D12_INDEX_BUFFER_VIEW Object3d::ibView{};
 Object3d::VertexPosNormalUv Object3d::vertices[vertexCount];
