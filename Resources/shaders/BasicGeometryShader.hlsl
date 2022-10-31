@@ -1,10 +1,5 @@
 #include "BasicShaderHeader.hlsli"
 
-struct GSOutput
-{
-	float4 pos : SV_POSITION;
-};
-
 [maxvertexcount(3)]
 void main(
 	triangle VSOutput input[3] : SV_POSITION, 
