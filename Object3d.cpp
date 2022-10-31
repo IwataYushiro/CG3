@@ -32,7 +32,7 @@ XMMATRIX Object3d::matBillboard = XMMatrixIdentity();
 XMMATRIX Object3d::matBillboardY = XMMatrixIdentity();
 D3D12_VERTEX_BUFFER_VIEW Object3d::vbView{};
 //D3D12_INDEX_BUFFER_VIEW Object3d::ibView{};
-Object3d::VertexPosNormalUv Object3d::vertices[vertexCount];
+Object3d::VertexPos Object3d::vertices[vertexCount];
 //unsigned short Object3d::indices[indexCount];
 
 void Object3d::StaticInitialize(ID3D12Device * device, int window_width, int window_height)
