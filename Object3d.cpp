@@ -266,16 +266,16 @@ void Object3d::InitializeGraphicsPipeline()
 			D3D12_APPEND_ALIGNED_ELEMENT,
 			D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0
 		},
-		{ // 法線ベクトル(1行で書いたほうが見やすい)
-			"NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0,
-			D3D12_APPEND_ALIGNED_ELEMENT,
-			D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0
-		},
-		{ // uv座標(1行で書いたほうが見やすい)
-			"TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0,
-			D3D12_APPEND_ALIGNED_ELEMENT,
-			D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0
-		},
+		//{ // 法線ベクトル(1行で書いたほうが見やすい)
+		//	"NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0,
+		//	D3D12_APPEND_ALIGNED_ELEMENT,
+		//	D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0
+		//},
+		//{ // uv座標(1行で書いたほうが見やすい)
+		//	"TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0,
+		//	D3D12_APPEND_ALIGNED_ELEMENT,
+		//	D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0
+		//},
 	};
 
 	// グラフィックスパイプラインの流れを設定
@@ -429,7 +429,7 @@ void Object3d::CreateModel()
 {
 	HRESULT result = S_FALSE;
 
-	std::vector<VertexPosNormalUv> realVertices;
+	std::vector<VertexPos> realVertices;
 	//四角形の頂点データ
 	//VertexPosNormalUv verticesSquare[]{
 	//	{{-5.0f,-5.0f,0.0f},{0,0,1},{0,1}},//左下
@@ -437,8 +437,8 @@ void Object3d::CreateModel()
 	//	{{+5.0f,-5.0f,0.0f},{0,0,1},{1,1}},//右下
 	//	{{+5.0f,+5.0f,0.0f},{0,0,1},{1,0}},//右上
 	//};
-	VertexPosNormalUv verticesPoint[]{
-		{{0.0f,0.0f,0.0f},{0,0,1},{0,1}}
+	VertexPos verticesPoint[]{
+		{{0.0f,0.0f,0.0f}}
 	};
 	//メンバ変数にコピー
 	//std::copy(std::begin(verticesSquare), std::end(verticesSquare), vertices);
@@ -466,7 +466,7 @@ void Object3d::CreateModel()
 	assert(SUCCEEDED(result));
 
 	// 頂点バッファへのデータ転送
-	VertexPosNormalUv* vertMap = nullptr;
+	VertexPos* vertMap = nullptr;
 	result = vertBuff->Map(0, nullptr, (void**)&vertMap);
 	if (SUCCEEDED(result)) {
 		memcpy(vertMap, vertices, sizeof(vertices));
@@ -644,8 +644,9 @@ void Object3d::Update()
 	// 定数バッファへデータ転送
 	ConstBufferData* constMap = nullptr;
 	result = constBuff->Map(0, nullptr, (void**)&constMap);
-	constMap->color = color;
-	constMap->mat = matWorld * matView * matProjection;	// 行列の合成
+	//constMap->color = color;
+	//constMap->mat = matWorld * matView * matProjection;	// 行列の合成
+	constMap->mat = matView * matProjection;	// 行列の合成
 	constBuff->Unmap(0, nullptr);
 }
 
