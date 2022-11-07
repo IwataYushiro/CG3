@@ -437,13 +437,21 @@ void ParticleManager::CreateModel()
 	//	{{+5.0f,-5.0f,0.0f},{0,0,1},{1,1}},//右下
 	//	{{+5.0f,+5.0f,0.0f},{0,0,1},{1,0}},//右上
 	//};
-	VertexPos verticesPoint[]{
-		{{0.0f,0.0f,0.0f}}
-	};
-	//メンバ変数にコピー
+	//VertexPos verticesPoint[]{
+	//	{{0.0f,0.0f,0.0f}}
+	//};
+	////メンバ変数にコピー
 	//std::copy(std::begin(verticesSquare), std::end(verticesSquare), vertices);
-	std::copy(std::begin(verticesPoint), std::end(verticesPoint), vertices);
+	//std::copy(std::begin(verticesPoint), std::end(verticesPoint), vertices);
 	
+	for (int i = 0; i < vertexCount; i++)
+	{
+		//X,Y,Z全て{-5.0f,5.0f}でランダムに分布
+		const float md_width = 10.0f;
+		vertices[i].pos.x = (float)rand() / RAND_MAX * md_width - md_width / 2.0f;
+		vertices[i].pos.y = (float)rand() / RAND_MAX * md_width - md_width / 2.0f;
+		vertices[i].pos.z = (float)rand() / RAND_MAX * md_width - md_width / 2.0f;
+	}
 	//四角形のインデックスデータ
 	//unsigned int indicesSquare[]{
 	//	0,1,2,	//三角形1
@@ -669,5 +677,5 @@ void ParticleManager::Draw()
 	// シェーダリソースビューをセット
 	cmdList->SetGraphicsRootDescriptorTable(1, gpuDescHandleSRV);
 	// 描画コマンド
-	cmdList->DrawIndexedInstanced(3, 1, 0, 0, 0);
+	cmdList->DrawInstanced(_countof(vertices), 1, 0, 0);
 }
