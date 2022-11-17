@@ -240,7 +240,9 @@ public: // メンバ関数
 	//void SetPosition(const XMFLOAT3& position) { this->position = position; }
 
 	//パーティクルの追加
-	void Add(int life, XMFLOAT3 position, XMFLOAT3 velocity, XMFLOAT3 accel);
+	void Add(int life, XMFLOAT3 position, XMFLOAT3 velocity, XMFLOAT3 accel,
+		float start_scale, float end_scale);
+
 private: // メンバ変数
 	ComPtr<ID3D12Resource> constBuff; // 定数バッファ
 	// ローカルスケール
