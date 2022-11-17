@@ -250,3 +250,4 @@ private: // メンバ変数
 	std::forward_list<Particle> particles;
 };
 
+const DirectX::XMFLOAT3 operator+(const DirectX::XMFLOAT3& lhs, const DirectX::XMFLOAT3& rhs);
