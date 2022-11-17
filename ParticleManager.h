@@ -30,10 +30,12 @@ public: // サブクラス
 	//	XMFLOAT2 uv;  // uv座標
 	//};
 
-	struct VertexPos
+	struct VertexPosScale
 	{		
 		XMFLOAT3 pos; // xyz座標
+		float scale;  //スケール
 	};
+
 	// 定数バッファ用データ構造体
 	struct ConstBufferData
 	{
@@ -57,6 +59,13 @@ public: // サブクラス
 		int frame = 0;
 		//終了frame
 		int num_frame = 0;
+
+		//スケール
+		float scale = 1.0f;
+		//初期値
+		float s_scale = 1.0f;
+		//最終値
+		float e_scale = 0.0f;
 	};
 
 private: // 定数
@@ -168,7 +177,7 @@ private: // 静的メンバ変数
 	// インデックスバッファビュー
 	//static D3D12_INDEX_BUFFER_VIEW ibView;
 	//頂点データ配列
-	static VertexPos vertices[vertexCount];
+	static VertexPosScale vertices[vertexCount];
 	//頂点インデックス配列
 	//static unsigned short indices[indexCount];
 
@@ -234,19 +243,8 @@ public: // メンバ関数
 	void Add(int life, XMFLOAT3 position, XMFLOAT3 velocity, XMFLOAT3 accel);
 private: // メンバ変数
 	ComPtr<ID3D12Resource> constBuff; // 定数バッファ
-	// 色
-	//XMFLOAT4 color = { 1,1,1,1 };
 	// ローカルスケール
 	XMFLOAT3 scale = { 1,1,1 };
-	// X,Y,Z軸回りのローカル回転角
-	//XMFLOAT3 rotation = { 0,0,0 };
-	// ローカル座標
-	//XMFLOAT3 position = { 0,0,0 };
-	// ローカルワールド変換行列
-	//XMMATRIX matWorld;
-	// 親オブジェクト
-	//ParticleManager* parent = nullptr;
-
 	std::forward_list<Particle> particles;
 };
 

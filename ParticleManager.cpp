@@ -32,7 +32,7 @@ XMMATRIX ParticleManager::matBillboard = XMMatrixIdentity();
 XMMATRIX ParticleManager::matBillboardY = XMMatrixIdentity();
 D3D12_VERTEX_BUFFER_VIEW ParticleManager::vbView{};
 //D3D12_INDEX_BUFFER_VIEW Object3d::ibView{};
-ParticleManager::VertexPos ParticleManager::vertices[vertexCount];
+ParticleManager::VertexPosScale ParticleManager::vertices[vertexCount];
 //unsigned short Object3d::indices[indexCount];
 
 void ParticleManager::StaticInitialize(ID3D12Device * device, int window_width, int window_height)
@@ -266,6 +266,11 @@ void ParticleManager::InitializeGraphicsPipeline()
 			D3D12_APPEND_ALIGNED_ELEMENT,
 			D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0
 		},
+		{//スケール
+			"TEXCOORD", 0, DXGI_FORMAT_R32_FLOAT, 0,
+			D3D12_APPEND_ALIGNED_ELEMENT,
+			D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0
+		},
 		//{ // 法線ベクトル(1行で書いたほうが見やすい)
 		//	"NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0,
 		//	D3D12_APPEND_ALIGNED_ELEMENT,
@@ -440,7 +445,7 @@ void ParticleManager::CreateModel()
 {
 	HRESULT result = S_FALSE;
 
-	std::vector<VertexPos> realVertices;
+	std::vector<VertexPosScale> realVertices;
 	//四角形の頂点データ
 	//VertexPosNormalUv verticesSquare[]{
 	//	{{-5.0f,-5.0f,0.0f},{0,0,1},{0,1}},//左下
@@ -477,7 +482,7 @@ void ParticleManager::CreateModel()
 	assert(SUCCEEDED(result));
 
 	// 頂点バッファへのデータ転送
-	VertexPos* vertMap = nullptr;
+	VertexPosScale* vertMap = nullptr;
 	result = vertBuff->Map(0, nullptr, (void**)&vertMap);
 	if (SUCCEEDED(result)) {
 		memcpy(vertMap, vertices, sizeof(vertices));
@@ -643,7 +648,7 @@ void ParticleManager::Update()
 		it->position = it->position + it->velocity;
 	}
 	//頂点バッファへデータ転送
-	VertexPos* vertMap = nullptr;
+	VertexPosScale* vertMap = nullptr;
 	result = vertBuff->Map(0, nullptr, (void**)&vertMap);
 	if (SUCCEEDED(result))
 	{
