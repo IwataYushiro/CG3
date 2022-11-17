@@ -455,14 +455,6 @@ void ParticleManager::CreateModel()
 	//std::copy(std::begin(verticesSquare), std::end(verticesSquare), vertices);
 	//std::copy(std::begin(verticesPoint), std::end(verticesPoint), vertices);
 	
-	for (int i = 0; i < vertexCount; i++)
-	{
-		//X,Y,Z全て{-5.0f,5.0f}でランダムに分布
-		const float md_width = 10.0f;
-		vertices[i].pos.x = (float)rand() / RAND_MAX * md_width - md_width / 2.0f;
-		vertices[i].pos.y = (float)rand() / RAND_MAX * md_width - md_width / 2.0f;
-		vertices[i].pos.z = (float)rand() / RAND_MAX * md_width - md_width / 2.0f;
-	}
 	//四角形のインデックスデータ
 	//unsigned int indicesSquare[]{
 	//	0,1,2,	//三角形1
@@ -689,4 +681,17 @@ void ParticleManager::Draw()
 	cmdList->SetGraphicsRootDescriptorTable(1, gpuDescHandleSRV);
 	// 描画コマンド
 	cmdList->DrawInstanced(_countof(vertices), 1, 0, 0);
+}
+
+void ParticleManager::Add(int life, XMFLOAT3 position, XMFLOAT3 velocity, XMFLOAT3 accel)
+{
+	//リストに要素を追加
+	particles.emplace_front();
+	//追加した要素の参照
+	Particle& p = particles.front();
+	//値セット
+	p.position = position;
+	p.velocity = velocity;
+	p.accel = accel;
+	p.num_frame = life;
 }

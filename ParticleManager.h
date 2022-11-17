@@ -50,7 +50,7 @@ public: // サブクラス
 		//座標
 		XMFLOAT3 position = {};
 		//速度
-		XMFLOAT3 veloxity = {};
+		XMFLOAT3 velocity = {};
 		//加速度
 		XMFLOAT3 accel = {};
 		//現在frame
@@ -231,7 +231,7 @@ public: // メンバ関数
 	//void SetPosition(const XMFLOAT3& position) { this->position = position; }
 
 	//パーティクルの追加
-
+	void Add(int life, XMFLOAT3 position, XMFLOAT3 velocity, XMFLOAT3 accel);
 private: // メンバ変数
 	ComPtr<ID3D12Resource> constBuff; // 定数バッファ
 	// 色
