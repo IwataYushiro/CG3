@@ -31,7 +31,7 @@ public: // サブクラス
 	//};
 
 	struct VertexPosScale
-	{		
+	{
 		XMFLOAT3 pos; // xyz座標
 		float scale;  //スケール
 	};

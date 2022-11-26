@@ -48,7 +48,7 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input)
 
 void GameScene::Update()
 {
-	
+
 	//スペースキーを押していたら
 	if (input->PushKey(DIK_SPACE))
 	{
@@ -72,14 +72,14 @@ void GameScene::Update()
 
 	for (int i = 0; i < 20; i++)
 	{
-		//X,Y,Z全て{-5.0f,5.0f}でランダムに分布
+		//X,Y,Z全て{-20.0f,20.0f}でランダムに分布
 		const float md_pos = 40.0f;
 		XMFLOAT3 pos{};
 		pos.x = (float)rand() / RAND_MAX * md_pos - md_pos / 2.0f;
 		pos.y = (float)rand() / RAND_MAX * md_pos - md_pos / 2.0f;
 		pos.z = (float)rand() / RAND_MAX * md_pos - md_pos / 2.0f;
-		//X,Y,Z全て{0.05f,0.05f}でランダムに分布
-		const float md_vel = 0.1f;
+		//X,Y,Z全て{0.1f,0.1f}でランダムに分布
+		const float md_vel = 0.2f;
 		XMFLOAT3 vel{};
 		vel.x = (float)rand() / RAND_MAX * md_vel - md_vel / 2.0f;
 		vel.y = (float)rand() / RAND_MAX * md_vel - md_vel / 2.0f;
@@ -90,7 +90,7 @@ void GameScene::Update()
 		acc.y = -(float)rand() / RAND_MAX * md_acc;
 
 		//追加
-		particleMan->Add(60, pos, vel, acc, 2.0f, 0.0f);
+		particleMan->Add(60, pos, vel, acc, 3.0f, 0.0f);
 	}
 
 	particleMan->Update();
